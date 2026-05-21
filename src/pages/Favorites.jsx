@@ -2,13 +2,14 @@ import React from 'react';
 import { useFavoriteQuery } from '../store/favorites-query';
 
 const Favorites = () => {
-	const { data, isPending } = useFavoriteQuery();
+	const { data, isPending, refetch } = useFavoriteQuery();
 	if (isPending) return <div>Loading...</div>;
 
 	if (data?.length === 0) return <div>Нет данных</div>;
 
 	return (
 		<div className="container">
+			<button onClick={refetch}>Обновить</button>
 			<div className="products">
 				{data.map((product) => (
 					<div key={product._id} className="product_block">

@@ -11,3 +11,6 @@ ul {
 	gap: 10px;
 	list-style: none;
 }
+li {
+	list-style: none;
+}

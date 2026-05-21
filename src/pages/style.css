@@ -22,6 +22,7 @@
 
 	object-fit: contain;
 }
+
 a {
 	text-decoration: none;
 	color: #444;
@@ -33,4 +34,18 @@ a {
 a:hover {
 	background: #f0f4ff;
 	color: #1a73e8;
+}
+.product_btns {
+	display: flex;
+	justify-content: space-between;
+	margin-top: auto;
+}
+.product_btns button {
+	padding: 5px;
+	border-radius: 10px;
+}
+.product_btns button:hover {
+	padding: 5px;
+	border-radius: 10px;
+	background: #f0f4ff;
 }

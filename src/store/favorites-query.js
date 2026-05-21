@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { $authApi } from '../lib/api';
 
 export const useFavoriteQuery = () => {
-	const { data, isPending } = useQuery({
+	const { data, isPending, refetch } = useQuery({
 		queryKey: ['favorites'],
 		queryFn: async () => {
 			const response = await $authApi.get('/favorites');
 			return response.data.data.products;
 		},
 	});
-	return { data, isPending };
+	return { data, isPending, refetch };
 };

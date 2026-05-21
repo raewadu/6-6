@@ -18,4 +18,32 @@ $authApi.interceptors.request.use((config) => {
 	return config;
 });
 
+$authApi.interceptors.response.use(
+	(config) => {
+		config;
+	},
+	async (error) => {
+		const originalRequest = error.config;
+		if (
+			error.response.status === 401 &&
+			originalRequest &&
+			!originalRequest._isRetry
+		) {
+			originalRequest._isRetry = true;
+			try {
+				const { data } = await $mainApi.post('/auth/refresh');
+
+				if (data.accessToken) {
+					localStorage.setItem('access_token', data.accessToken);
+				}
+				return $authApi.request(originalRequest);
+			} catch (err) {
+				localStorage.removeItem('access_token');
+				return Promise.reject(err);
+			}
+		}
+		return Promise.reject(error);
+	},
+);
+
 export { $mainApi, $authApi };

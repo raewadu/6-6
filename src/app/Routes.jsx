@@ -9,6 +9,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Error from '../pages/Error';
 import { Providers } from './Providers';
+import { AuthGuard } from './auth-guard';
+import { AuthCheck } from './auth-check';
 
 const Routes = createBrowserRouter([
 	{
@@ -19,29 +21,40 @@ const Routes = createBrowserRouter([
 		),
 		children: [
 			{
+				element: <AuthGuard />,
+				children: [
+					{
+						path: '/Basket',
+						element: <Basket />,
+					},
+					{
+						path: '/orders',
+						element: <Orders />,
+					},
+					{
+						path: '/favorites',
+						element: <Favorites />,
+					},
+				],
+			},
+			{
 				path: '/',
 				element: <Products />,
 			},
 			{
-				path: '/Basket',
-				element: <Basket />,
+				element: <AuthCheck />,
+				children: [
+					{
+						path: '/login',
+						element: <Login />,
+					},
+					{
+						path: '/register',
+						element: <Register />,
+					},
+				],
 			},
-			{
-				path: '/orders',
-				element: <Orders />,
-			},
-			{
-				path: '/favorites',
-				element: <Favorites />,
-			},
-			{
-				path: '/login',
-				element: <Login />,
-			},
-			{
-				path: '/register',
-				element: <Register />,
-			},
+
 			{
 				path: '*',
 				element: <Error />,

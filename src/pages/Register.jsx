@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRegisterMutation } from '../store/register-mutation';
+import { useAuth } from '../hooks/use-auth';
 
 const Register = () => {
 	const [login, setLogin] = useState('');
