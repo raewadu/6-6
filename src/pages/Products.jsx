@@ -55,7 +55,7 @@ const Products = () => {
 								<p>{product.description}</p>
 							</div>
 
-							<p>{product.price}</p>
+							<p className="price">{product.price}</p>
 							<div className="product_btns">
 								<button onClick={() => addToCart({ productId: product._id })}>
 									В корзину

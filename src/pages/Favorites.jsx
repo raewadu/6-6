@@ -20,7 +20,7 @@ const Favorites = () => {
 							<h3>{product.name}</h3>
 							<p>{product.description}</p>
 						</div>
-						<p>{product.price}</p>
+						<p className="price">{product.price} сом</p>
 					</div>
 				))}
 			</div>
