@@ -1,32 +1,35 @@
 import React from 'react';
 import { useCartQuery } from '../store/cart-query';
-import { useRemoveFromCart } from '../store/cart-remove';
+import { useRemoveCart } from '../store/cart-remove';
 
 const Basket = () => {
-	const { data, isPending } = useCartQuery();
-	const { mutate: removeFromCart } = useRemoveFromCart;
+	const { data, isPending, refetch } = useCartQuery();
+	const { mutate } = useRemoveCart();
 
 	if (isPending) return <div>Loading...</div>;
+	console.log(data);
 
-	if (!data || data.length === 0) return <div>Корзина пуста</div>;
+	if (data?.length === 0) return <div>Нет данных</div>;
 
 	return (
 		<div className="container">
+			<button onClick={refetch}>Обновить</button>
 			<div className="products">
-				{data.map((product) => (
+				{data.map(({ product, quantity }) => (
 					<div key={product._id} className="product_block">
 						<div>
-							<img src={product.image} alt={product.name} />
+							<img src={product.image} alt={`${product.name}`} />
 						</div>
-
 						<div>
 							<h3>{product.name}</h3>
-							<p>{product.description}</p>
+							<p>Количество:{quantity}</p>
 						</div>
-
 						<p>{product.price}</p>
-
-						<button onClick={() => removeFromCart(product._id)}>Удалить</button>
+						<div className="product_btns">
+							<button onClick={() => mutate({ productId: product._id })}>
+								Убрать из корзины
+							</button>
+						</div>
 					</div>
 				))}
 			</div>
